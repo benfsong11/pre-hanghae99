@@ -1,87 +1,145 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
 
     <title>웹개발 종합반 1주차 숙제</title>
-    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Gaegu&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Gaegu&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        * {
-            font-family: 'Do Hyeon', sans-serif;
-        }
-        .wrap {
-            width: 500px;
-            margin: auto;
-        }
-        .goods-image {
-            width: 500px;
-            height: 500px;
-            object-fit: cover;
-            margin-bottom: 20px;
-        }
-        .goods-name {
-            font-weight: bold;
-            font-size: 36px;
-        }
-        .goods-price {
-            font-size: 16px;
-            font-weight: normal;
-        }
-        .btn {
-            display: block;
-            margin: auto;
-        }
+      * {
+        font-family: "Do Hyeon", sans-serif;
+      }
+      .wrap {
+        width: 500px;
+        margin: auto;
+      }
+      .goods-image {
+        width: 500px;
+        height: 500px;
+        object-fit: cover;
+        margin-bottom: 20px;
+      }
+      .goods-name {
+        font-weight: bold;
+        font-size: 36px;
+      }
+      .goods-price {
+        font-size: 16px;
+        font-weight: normal;
+      }
+      .btn {
+        display: block;
+        margin: auto;
+      }
+      .rate-inform {
+        color: blue;
+      }
     </style>
-</head>
-<body>
+    <script>
+      $(document).ready(function () {
+        rate();
+      });
+
+      function rate() {
+        // 여기에 코드를 입력하세요
+        $.ajax({
+          type: "GET",
+          url: "http://spartacodingclub.shop/sparta_api/rate",
+          data: {},
+          success: function (response) {
+            let rates = response["rate"];
+            let temp_html = `<p>달러/원 환율: ${rates}</p>`;
+            $("#rate-info").append(temp_html);
+          },
+        });
+      }
+    </script>
+  </head>
+  <body>
     <div class="wrap">
-        <img class="goods-image" src="iphonese.jpeg">
-        <p class="goods-name">아이폰 SE 1세대 <span class="goods-price">가격: 100,000원</span></p>
-        <p>아이폰 SE 1세대를 판매합니다. 조금 사용하고 박스에 넣어 둬서 상태 아주 깨끗합니다. 주문서를 작성해 주시면 확인 후 결제 방법에 대한 안내 문자를 보내드리겠습니다.</p>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text">주문자 이름</span>
-            </div>
-            <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+      <img class="goods-image" src="iphonese.jpeg" />
+      <p class="goods-name">
+        아이폰 SE 1세대 <span class="goods-price">가격: 100,000원</span>
+      </p>
+      <p>
+        아이폰 SE 1세대를 판매합니다. 조금 사용하고 박스에 넣어 둬서 상태 아주
+        깨끗합니다. 주문서를 작성해 주시면 확인 후 결제 방법에 대한 안내 문자를
+        보내드리겠습니다.
+      </p>
+      <p class="rate-inform" id="rate-info"></p>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">주문자 이름</span>
         </div>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <label class="input-group-text" for="inputGroupSelect01">수량</label>
-            </div>
-            <select class="custom-select" id="inputGroupSelect01">
-                <option selected>-- 수량을 선택하세요 --</option>
-                <option value="1">1</option>
-            </select>
+        <input
+          type="text"
+          class="form-control"
+          aria-label="Default"
+          aria-describedby="inputGroup-sizing-default"
+        />
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">수량</label>
         </div>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text">주소</span>
-            </div>
-            <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+        <select class="custom-select" id="inputGroupSelect01">
+          <option selected>-- 수량을 선택하세요 --</option>
+          <option value="1">1</option>
+        </select>
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">주소</span>
         </div>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text">전화번호</span>
-            </div>
-            <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+        <input
+          type="text"
+          class="form-control"
+          aria-label="Default"
+          aria-describedby="inputGroup-sizing-default"
+        />
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">전화번호</span>
         </div>
-        <button type="button" class="btn btn-primary">주문하기</button>
+        <input
+          type="text"
+          class="form-control"
+          aria-label="Default"
+          aria-describedby="inputGroup-sizing-default"
+        />
+      </div>
+      <button type="button" class="btn btn-primary">주문하기</button>
     </div>
-</body>
+  </body>
 </html>
