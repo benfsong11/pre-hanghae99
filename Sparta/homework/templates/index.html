@@ -64,10 +64,14 @@
       .rate-inform {
         color: blue;
       }
+      .table {
+        margin-top: 20px;
+      }
     </style>
     <script>
       $(document).ready(function () {
         rate();
+        showOrder();
       });
 
       function rate() {
@@ -83,11 +87,53 @@
           },
         });
       }
+
+      function orderGoods() {
+          let name = $('#order-name').val();
+          let quantity = $('#order-count').val();
+          let address = $('#order-address').val();
+          let number = $('#order-number').val();
+
+        $.ajax({
+          type: "POST",
+          url: "/order",
+          data: {name_give:name, quantity_give:quantity, address_give:address, number_give:number},
+          success: function (response) { // 성공하면
+            alert(response['msg']);
+            window.location.reload();
+          }
+        })
+      }
+
+      function showOrder() {
+          $.ajax({
+              type: "GET",
+              url: "/order",
+              data: {},
+              success: function (response) {
+                  let orders = response['all_orders']
+                  for (let i = 0; i < orders.length; i++) {
+                      let name = orders[i]['name']
+                      let quantity = orders[i]['quantity']
+                      let address = orders[i]['address']
+                      let number = orders[i]['number']
+
+                      let temp_html = `<tr>
+		      <th scope="row">${name}</th>
+		      <td>${quantity}</td>
+		      <td>${address}</td>
+		      <td>${number}</td>
+		    </tr>`
+                      $('#orders-box').append(temp_html)
+                  }
+              }
+          })
+      }
     </script>
   </head>
   <body>
     <div class="wrap">
-      <img class="goods-image" src="iphonese.jpeg" />
+      <img class="goods-image" src="../static/iphonese.jpeg" />
       <p class="goods-name">
         아이폰 SE 1세대 <span class="goods-price">가격: 100,000원</span>
       </p>
@@ -103,6 +149,7 @@
         </div>
         <input
           type="text"
+          id="order-name"
           class="form-control"
           aria-label="Default"
           aria-describedby="inputGroup-sizing-default"
@@ -110,9 +157,9 @@
       </div>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">수량</label>
+          <label class="input-group-text" for="order-count">수량</label>
         </div>
-        <select class="custom-select" id="inputGroupSelect01">
+        <select class="custom-select" id="order-count">
           <option selected>-- 수량을 선택하세요 --</option>
           <option value="1">1</option>
         </select>
@@ -123,6 +170,7 @@
         </div>
         <input
           type="text"
+          id="order-address"
           class="form-control"
           aria-label="Default"
           aria-describedby="inputGroup-sizing-default"
@@ -134,12 +182,25 @@
         </div>
         <input
           type="text"
+          id="order-number"
           class="form-control"
           aria-label="Default"
           aria-describedby="inputGroup-sizing-default"
         />
       </div>
-      <button type="button" class="btn btn-primary">주문하기</button>
+      <button type="button" class="btn btn-primary" onclick="orderGoods()">주문하기</button>
+      <table class="table">
+		  <thead>
+		    <tr>
+		      <th scope="col">이름</th>
+		      <th scope="col">수량</th>
+		      <th scope="col">주소</th>
+		      <th scope="col">전화번호</th>
+		    </tr>
+		  </thead>
+		  <tbody id="orders-box">
+		  </tbody>
+		</table>
     </div>
   </body>
 </html>
