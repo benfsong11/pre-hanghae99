@@ -38,6 +38,13 @@
                 color: blue;
                 font-weight: bold;
             }
+            .delete-button {
+                color: cornflowerblue;
+                border: none;
+                background-color: inherit;
+                cursor: pointer;
+                display: inline-block;
+            }
 
             #post-box {
                 width: 500px;
@@ -68,7 +75,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "/memo",
+                    url: "/memo/save",
                     data: {url_give:url, comment_give:comment},
                     success: function (response) { // 성공하면
                         alert(response["msg"]);
@@ -77,10 +84,22 @@
                 })
             }
 
+            function deleteArticles(url) {
+                $.ajax({
+                    type: "POST",
+                    url: "/memo/delete",
+                    data: {url_give: url},
+                    success: function (response) {
+                        alert(response['msg']);
+                        window.location.reload();
+                    }
+                })
+            }
+
             function showArticles() {
                 $.ajax({
                     type: "GET",
-                    url: "/memo",
+                    url: "/memo/list",
                     data: {},
                     success: function (response) {
                         let articles = response['all_articles']
@@ -99,6 +118,7 @@
                         <a target="_blank" href="${url}" class="card-title">${title}</a>
                         <p class="card-text">${description}</p>
                         <p class="card-text comment">${comment}</p>
+                        <button class="delete-button" onclick="deleteArticles('${url}')">삭제</button>
                     </div>
                 </div>`;
 
